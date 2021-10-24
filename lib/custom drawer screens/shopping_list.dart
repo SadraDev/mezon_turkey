@@ -1,5 +1,4 @@
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +27,6 @@ class _ShoppingListState extends State<ShoppingList> {
           return Padding(
             padding: const EdgeInsets.only(top: 10),
             child: ListTile(
-              dense: true,
               leading: SizedBox(
                 height: 250,
                 width: 100,
@@ -62,46 +60,12 @@ class _ShoppingListState extends State<ShoppingList> {
               ),
               title: Text(ShoppingList.buyingList[index]['description']),
               subtitle: Text(ShoppingList.buyingList[index]['price']),
-              onLongPress: () {
-                Alert(
-                  context: context,
-                  type: AlertType.none,
-                  title: "!حذف",
-                  desc: "آیا میخواهید از سبد حذف کنید؟",
-                  buttons: [
-                    DialogButton(
-                      child: const Text(
-                        "حذف",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      onPressed: () {
-                        ShoppingList.buyingList.removeAt(index);
-                        Navigator.pop(context);
-                        setState(() {});
-                      },
-                      width: 120,
-                      color: Colors.red,
-                    ),
-                    DialogButton(
-                      child: const Text(
-                        "لغو",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      width: 120,
-                      color: Colors.green,
-                    )
-                  ],
-                ).show();
-              },
+              trailing: IconButton(
+                icon: const Icon(Icons.delete_outline),
+                onPressed: () {
+                  setState(() => ShoppingList.buyingList.removeAt(index));
+                },
+              ),
             ),
           );
         },

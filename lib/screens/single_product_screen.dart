@@ -117,7 +117,10 @@ class SingleProductScreen extends StatelessWidget {
                 Navigator.pop(context);
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                    content: Text('به سبد خرید اضافه شد'),
+                    content: Text(
+                      'به سبد خرید اضافه شد',
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 );
               },
