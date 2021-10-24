@@ -5,6 +5,8 @@ import 'package:mezon_turkey/admin/admin_screen.dart';
 import 'package:mezon_turkey/screens/login_screen.dart';
 import 'package:mezon_turkey/screens/main_screen.dart';
 import 'package:mezon_turkey/screens/register_screen.dart';
+import 'package:provider/provider.dart';
+import 'Logs/login.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,15 +27,18 @@ class _MezonTurkeyState extends State<MezonTurkey> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: [SystemUiOverlay.top]);
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: LoginFlow.id,
-      routes: {
-        MainScreen.id: (context) => const MainScreen(),
-        AdminScreen.id: (context) => const AdminScreen(),
-        LoginFlow.id: (context) => const LoginFlow(),
-        Register.id: (context) => const Register(),
-      },
+    return ChangeNotifierProvider(
+      create: (context) => LogIn(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: LoginFlow.id,
+        routes: {
+          MainScreen.id: (context) => const MainScreen(),
+          AdminScreen.id: (context) => const AdminScreen(),
+          LoginFlow.id: (context) => const LoginFlow(),
+          Register.id: (context) => const Register(),
+        },
+      ),
     );
   }
 }

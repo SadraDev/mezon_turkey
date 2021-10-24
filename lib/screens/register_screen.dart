@@ -1,8 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:mezon_turkey/screens/login_screen.dart';
-
-FirebaseAuth _auth = FirebaseAuth.instance;
+import 'package:mezon_turkey/Logs/login.dart';
+import 'package:validators/validators.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -13,6 +13,7 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  final formKey = GlobalKey<FormState>();
   bool obscure = true;
   String? _email;
   String? _password;
@@ -61,120 +62,124 @@ class _RegisterState extends State<Register> {
                   ],
                   color: Colors.white,
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    const Text(
-                      'REGISTER',
-                      style: TextStyle(
-                        color: Colors.blueAccent,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 36,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25),
-                      child: TextField(
-                        decoration: const InputDecoration(
-                          hintText: 'JohnDoe@example.io',
-                          hintStyle: TextStyle(color: Colors.grey),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors.lightBlueAccent, width: 2),
-                          ),
-                          labelText: 'Email',
-                          labelStyle:
-                              TextStyle(fontSize: 16, color: Colors.grey),
-                          floatingLabelStyle:
-                              TextStyle(color: Colors.lightBlueAccent),
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      const Text(
+                        'REGISTER',
+                        style: TextStyle(
+                          color: Colors.blueAccent,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 36,
                         ),
-                        onChanged: (value) {
-                          _email = value;
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: TextFormField(
+                          decoration: const InputDecoration(
+                            hintText: 'JohnDoe@example.io',
+                            hintStyle: TextStyle(color: Colors.grey),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.lightBlueAccent, width: 2),
+                            ),
+                            labelText: 'Email',
+                            labelStyle:
+                                TextStyle(fontSize: 16, color: Colors.grey),
+                            floatingLabelStyle:
+                                TextStyle(color: Colors.lightBlueAccent),
+                          ),
+                          validator: (email) => !isEmail(email!)
+                              ? 'لطفا ایمیل را صحیح وارد کنید '
+                              : null,
+                          onChanged: (value) {
+                            _email = value;
+                          },
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 25),
+                            child: TextField(
+                              obscureText: obscure,
+                              decoration: InputDecoration(
+                                focusedBorder: const UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.lightBlueAccent, width: 2),
+                                ),
+                                suffixIcon: IconButton(
+                                  onPressed: () {
+                                    setState(() => obscure = !obscure);
+                                  },
+                                  icon: Icon(
+                                    obscure
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
+                                  ),
+                                ),
+                                labelText: 'Password',
+                                labelStyle: const TextStyle(
+                                    fontSize: 16, color: Colors.grey),
+                                floatingLabelStyle: const TextStyle(
+                                    color: Colors.lightBlueAccent),
+                              ),
+                              onChanged: (value) {
+                                _password = value;
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      GestureDetector(
+                        child: Container(
+                          child: const Text(
+                            'REGISTER',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 55, vertical: 20),
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(30)),
+                            color: Colors.blue,
+                            gradient: LinearGradient(
+                              colors: [
+                                Color(0xff1565C0),
+                                Colors.lightBlue,
+                                Colors.lightBlueAccent,
+                              ],
+                            ),
+                          ),
+                        ),
+                        onTap: () {
+                          final provider =
+                              Provider.of<LogIn>(context, listen: false);
+
+                          if (formKey.currentState!.validate()) {
+                            provider.register(_email!, _password!, context);
+                          }
                         },
                       ),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 25),
-                          child: TextField(
-                            obscureText: obscure,
-                            decoration: InputDecoration(
-                              focusedBorder: const UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Colors.lightBlueAccent, width: 2),
-                              ),
-                              suffixIcon: IconButton(
-                                onPressed: () {
-                                  setState(() => obscure = !obscure);
-                                },
-                                icon: Icon(
-                                  obscure
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
-                                ),
-                              ),
-                              labelText: 'Password',
-                              labelStyle: const TextStyle(
-                                  fontSize: 16, color: Colors.grey),
-                              floatingLabelStyle: const TextStyle(
-                                  color: Colors.lightBlueAccent),
-                            ),
-                            onChanged: (value) {
-                              _password = value;
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    GestureDetector(
-                      child: Container(
+                      GestureDetector(
                         child: const Text(
-                          'REGISTER',
+                          'Already have an account? log in',
                           style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
+                            color: Colors.blue,
                           ),
                         ),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 55, vertical: 20),
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
-                          color: Colors.blue,
-                          gradient: LinearGradient(
-                            colors: [
-                              Color(0xff1565C0),
-                              Colors.lightBlue,
-                              Colors.lightBlueAccent,
-                            ],
-                          ),
-                        ),
+                        onTap: () {
+                          Navigator.popAndPushNamed(context, LoginFlow.id);
+                        },
                       ),
-                      onTap: () {
-                        try {
-                          _auth.createUserWithEmailAndPassword(
-                            email: _email!,
-                            password: _password!,
-                          );
-                        } on FirebaseAuthException {
-                          //TODO: show custom alert
-                        }
-                      },
-                    ),
-                    GestureDetector(
-                      child: const Text(
-                        'Already have an account? log in',
-                        style: TextStyle(
-                          color: Colors.blue,
-                        ),
-                      ),
-                      onTap: () {
-                        Navigator.popAndPushNamed(context, LoginFlow.id);
-                      },
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
