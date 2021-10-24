@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1053058249817",
+    "project_id": "mezon-turkey",
+    "storage_bucket": "mezon-turkey.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1053058249817:android:cf39ad73beada497ab6d48",
+        "android_client_info": {
+          "package_name": "SadraDev.com.mezon_turkey"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1053058249817-0u8hhm13kjd33cglvo31cei6imrkgiof.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCunfnGpIc17B-4xRw7VwKlT5g4mQHblqs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1053058249817-0u8hhm13kjd33cglvo31cei6imrkgiof.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

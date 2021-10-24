@@ -1,0 +1,35 @@
+name: mezon_turkey
+description: A new Flutter project.
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  font_awesome_flutter: ^9.1.0
+  firebase_storage: ^10.0.4
+  firebase_core: ^1.7.0
+  firebase_auth: ^3.1.2
+  cloud_firestore: ^2.5.3
+  file_picker: ^4.1.3
+  rflutter_alert: ^2.0.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^1.0.0
+
+flutter:
+  uses-material-design: true
+
+
+  assets:
+   - assets/DrawerHeader.jpg
+   - assets/images/
