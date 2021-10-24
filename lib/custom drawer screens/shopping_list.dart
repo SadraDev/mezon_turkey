@@ -1,9 +1,7 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 
 class ShoppingList extends StatefulWidget {
   const ShoppingList({Key? key}) : super(key: key);
@@ -28,7 +26,7 @@ class _ShoppingListState extends State<ShoppingList> {
         itemCount: ShoppingList.buyingList.length,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
-            padding: EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.only(top: 10),
             child: ListTile(
               dense: true,
               leading: SizedBox(
@@ -72,7 +70,7 @@ class _ShoppingListState extends State<ShoppingList> {
                   desc: "آیا میخواهید از سبد حذف کنید؟",
                   buttons: [
                     DialogButton(
-                      child: Text(
+                      child: const Text(
                         "حذف",
                         style: TextStyle(
                             color: Colors.white,
@@ -88,7 +86,7 @@ class _ShoppingListState extends State<ShoppingList> {
                       color: Colors.red,
                     ),
                     DialogButton(
-                      child: Text(
+                      child: const Text(
                         "لغو",
                         style: TextStyle(
                             color: Colors.white,
@@ -111,7 +109,7 @@ class _ShoppingListState extends State<ShoppingList> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: MaterialButton(
         elevation: 5,
-        padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
         color: Colors.green,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -119,7 +117,7 @@ class _ShoppingListState extends State<ShoppingList> {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
+          children: const <Widget>[
             Text('خرید'),
             SizedBox(width: 24),
             Icon(Icons.shopping_bag_outlined),
@@ -127,7 +125,6 @@ class _ShoppingListState extends State<ShoppingList> {
         ),
         onPressed: () {
           //TODO: redirect to payment page
-          FirebaseAuth.instance.signOut();
         },
       ),
     );

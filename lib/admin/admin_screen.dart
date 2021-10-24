@@ -1,12 +1,10 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-import 'dart:io';
-import 'package:file_picker/file_picker.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
+import 'dart:io';
 
 FirebaseFirestore firebaseInstance = FirebaseFirestore.instance;
 
@@ -48,12 +46,12 @@ class _AdminScreenState extends State<AdminScreen> {
             child: Center(
               child: GestureDetector(
                 child: Container(
-                  padding: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
+                  padding: const EdgeInsets.all(20),
+                  decoration: const BoxDecoration(
                     color: Colors.lightBlueAccent,
                     borderRadius: BorderRadius.all(Radius.circular(200)),
                   ),
-                  child: Icon(
+                  child: const Icon(
                     Icons.add,
                     size: 50,
                     color: Colors.black54,
@@ -68,16 +66,16 @@ class _AdminScreenState extends State<AdminScreen> {
             child: ListView(
               children: [
                 ListTile(
-                  leading: Text('image name : '),
+                  leading: const Text('image name : '),
                   minLeadingWidth: 87,
                   title: TextField(
                     maxLength: 20,
                     cursorColor: Colors.lightBlueAccent,
                     cursorHeight: 25,
-                    cursorRadius: Radius.circular(10),
+                    cursorRadius: const Radius.circular(10),
                     decoration: InputDecoration(
                       hintText: fileName,
-                      focusedBorder: UnderlineInputBorder(
+                      focusedBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(
                           color: Colors.lightBlueAccent,
                           width: 2.0,
@@ -91,13 +89,13 @@ class _AdminScreenState extends State<AdminScreen> {
                   dense: true,
                 ),
                 ListTile(
-                  leading: Text('gimat : '),
+                  leading: const Text('gimat : '),
                   minLeadingWidth: 87,
                   title: TextField(
                     cursorColor: Colors.lightBlueAccent,
                     cursorHeight: 25,
-                    cursorRadius: Radius.circular(10),
-                    decoration: InputDecoration(
+                    cursorRadius: const Radius.circular(10),
+                    decoration: const InputDecoration(
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
                           color: Colors.lightBlueAccent,
@@ -112,13 +110,13 @@ class _AdminScreenState extends State<AdminScreen> {
                   dense: true,
                 ),
                 ListTile(
-                  leading: Text('size : '),
+                  leading: const Text('size : '),
                   minLeadingWidth: 87,
                   title: TextField(
                     cursorColor: Colors.lightBlueAccent,
                     cursorHeight: 25,
-                    cursorRadius: Radius.circular(10),
-                    decoration: InputDecoration(
+                    cursorRadius: const Radius.circular(10),
+                    decoration: const InputDecoration(
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
                           color: Colors.lightBlueAccent,
@@ -133,13 +131,13 @@ class _AdminScreenState extends State<AdminScreen> {
                   dense: true,
                 ),
                 ListTile(
-                  leading: Text('tozihat : '),
+                  leading: const Text('tozihat : '),
                   minLeadingWidth: 87,
                   title: TextField(
                     cursorColor: Colors.lightBlueAccent,
                     cursorHeight: 25,
-                    cursorRadius: Radius.circular(10),
-                    decoration: InputDecoration(
+                    cursorRadius: const Radius.circular(10),
+                    decoration: const InputDecoration(
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
                           color: Colors.lightBlueAccent,
@@ -154,13 +152,13 @@ class _AdminScreenState extends State<AdminScreen> {
                   dense: true,
                 ),
                 ListTile(
-                  leading: Text('code : '),
+                  leading: const Text('code : '),
                   minLeadingWidth: 87,
                   title: TextField(
                     cursorColor: Colors.lightBlueAccent,
                     cursorHeight: 25,
-                    cursorRadius: Radius.circular(10),
-                    decoration: InputDecoration(
+                    cursorRadius: const Radius.circular(10),
+                    decoration: const InputDecoration(
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
                           color: Colors.lightBlueAccent,
@@ -177,7 +175,7 @@ class _AdminScreenState extends State<AdminScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    Text('Kafsh : '),
+                    const Text('Kafsh : '),
                     Checkbox(
                       checkColor: Colors.black,
                       activeColor: Colors.lightBlueAccent,
@@ -188,7 +186,7 @@ class _AdminScreenState extends State<AdminScreen> {
                         setState(() {});
                       },
                     ),
-                    Text('Lebas : '),
+                    const Text('Lebas : '),
                     Checkbox(
                       checkColor: Colors.black,
                       activeColor: Colors.lightBlueAccent,
@@ -208,7 +206,7 @@ class _AdminScreenState extends State<AdminScreen> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
+                const Text(
                   'send',
                   style: TextStyle(color: Colors.black54),
                 ),
@@ -220,16 +218,16 @@ class _AdminScreenState extends State<AdminScreen> {
               borderRadius: BorderRadius.circular(20),
             ),
             onPressed: () {
-              if (fileName == 'no file selected' &&
-                  code == '' &&
-                  description == '' &&
-                  size == '' &&
-                  price == '') {
-                Alert(
+              if (fileName == 'no file selected' && size == '' && price == '') {
+                showDialog(
                   context: context,
-                  title: "جای خالی نزار",
-                  desc: "لطفا همشو پر کن",
-                ).show();
+                  builder: (context) => const AlertDialog(
+                    content: Text(
+                      'لطفا جای خالی نزارید',
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                );
               } else {
                 uploadFile();
                 firebaseInstance.collection('products').doc(fileName).set({
@@ -280,11 +278,11 @@ class _AdminScreenState extends State<AdminScreen> {
         if (snapshot.hasData) {
           final snap = snapshot.data!;
           final progress = snap.bytesTransferred / snap.totalBytes;
-          final percentage = (progress * 100).toStringAsFixed(2);
+          final percentage = (progress * 100).toString();
 
           return Text(
-            '$percentage %',
-            style: TextStyle(
+            '  $percentage %',
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
               color: Colors.black54,

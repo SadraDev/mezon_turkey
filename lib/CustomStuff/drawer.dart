@@ -1,7 +1,7 @@
+import 'package:mezon_turkey/custom%20drawer%20screens/shopping_list.dart';
+import 'package:mezon_turkey/admin/admin_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:mezon_turkey/admin/admin_screen.dart';
-import 'package:mezon_turkey/custom%20drawer%20screens/shopping_list.dart';
 
 User? user = FirebaseAuth.instance.currentUser;
 
@@ -59,6 +59,32 @@ class CustomDrawer extends StatelessWidget {
                   : const Icon(Icons.dark_mode),
               onChanged: onChanged,
               title: const Text('حالت شب'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.logout),
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    content: const Text('آیا می خواهید از اکانت خارج شوید؟'),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('نه'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          FirebaseAuth.instance.signOut();
+                        },
+                        child: const Text('بله'),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              title: const Text('خروج از اکانت شخصی'),
             ),
             const AdminOrNot(),
           ],

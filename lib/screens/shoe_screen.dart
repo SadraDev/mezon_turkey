@@ -1,9 +1,8 @@
-// ignore_for_file: prefer_const_constructors
+import 'package:mezon_turkey/screens/single_product_screen.dart';
+import 'package:mezon_turkey/CustomStuff/bubbles.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:mezon_turkey/CustomStuff/bubbles.dart';
-import 'package:mezon_turkey/screens/single_product_screen.dart';
 
 class ShoeScreen extends StatelessWidget {
   ShoeScreen({Key? key, required this.isChecked}) : super(key: key);
@@ -18,13 +17,13 @@ class ShoeScreen extends StatelessWidget {
       stream: _shoeStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
-          return Center(
+          return const Center(
             child: Text('Something went wrong'),
           );
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(color: Colors.lightBlueAccent),
           );
         }
@@ -53,10 +52,32 @@ class ShoeScreen extends StatelessWidget {
             void Function()? onLongPress() {
               if (FirebaseAuth.instance.currentUser!.uid.toString() ==
                   'ViDaBMnGY0dnI32oKXKk9QXgXCY2') {
-                FirebaseFirestore.instance
-                    .collection('products')
-                    .doc(data[i]['fileName'])
-                    .delete();
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    content: const Text(
+                        'Are your sure you want to delete the product?'),
+                    title: const Text('Delete'),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('no'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          FirebaseFirestore.instance
+                              .collection('products')
+                              .doc(data[i]['fileName'])
+                              .delete();
+                          Navigator.pop(context);
+                        },
+                        child: const Text('delete'),
+                      ),
+                    ],
+                  ),
+                );
               }
             }
 

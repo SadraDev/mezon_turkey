@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:mezon_turkey/CustomStuff/navigationbar.dart';
-import 'package:mezon_turkey/CustomStuff/drawer.dart';
-import 'package:mezon_turkey/admin/admin_screen.dart';
 import 'package:mezon_turkey/screens/cloth_screen.dart';
 import 'package:mezon_turkey/screens/home_screen.dart';
 import 'package:mezon_turkey/screens/shoe_screen.dart';
+import 'package:mezon_turkey/CustomStuff/drawer.dart';
+import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -60,7 +59,7 @@ class _MainScreenState extends State<MainScreen> {
           selectedIndex: selectedIndex,
           onItemTapped: onItemTapped,
         ),
-        body: _screenOptions(selectedIndex), //_screenOptions(selectedIndex),
+        body: _screenOptions(selectedIndex),
       ),
     );
   }

@@ -1,9 +1,8 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+import 'package:mezon_turkey/screens/single_product_screen.dart';
+import 'package:mezon_turkey/CustomStuff/bubbles.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:mezon_turkey/CustomStuff/bubbles.dart';
-import 'package:mezon_turkey/screens/single_product_screen.dart';
 
 final Stream<QuerySnapshot> _homeStream =
     FirebaseFirestore.instance.collection('products').snapshots();
@@ -18,13 +17,13 @@ class HomeScreen extends StatelessWidget {
       stream: _homeStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
-          return Center(
+          return const Center(
             child: Text('Something went wrong'),
           );
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(color: Colors.lightBlueAccent),
           );
         }
@@ -59,15 +58,15 @@ class HomeScreen extends StatelessWidget {
                   showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
-                      content:
-                          Text('Are your sure you want to delete the product?'),
-                      title: Text('Delete'),
+                      content: const Text(
+                          'Are your sure you want to delete the product?'),
+                      title: const Text('Delete'),
                       actions: [
                         TextButton(
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          child: Text('no'),
+                          child: const Text('no'),
                         ),
                         TextButton(
                           onPressed: () {
@@ -77,7 +76,7 @@ class HomeScreen extends StatelessWidget {
                                 .delete();
                             Navigator.pop(context);
                           },
-                          child: Text('delete'),
+                          child: const Text('delete'),
                         ),
                       ],
                     ),

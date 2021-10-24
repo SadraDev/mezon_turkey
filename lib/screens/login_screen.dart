@@ -1,10 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:mezon_turkey/Logs/login.dart';
 import 'package:mezon_turkey/screens/register_screen.dart';
-import 'package:provider/provider.dart';
-import 'main_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mezon_turkey/Logs/login.dart';
 import 'package:validators/validators.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
+import 'main_screen.dart';
 
 FirebaseAuth _auth = FirebaseAuth.instance;
 

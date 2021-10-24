@@ -1,7 +1,7 @@
+import 'package:mezon_turkey/screens/register_screen.dart';
+import 'package:mezon_turkey/screens/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:mezon_turkey/screens/login_screen.dart';
-import 'package:mezon_turkey/screens/register_screen.dart';
 
 class LogIn extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;

@@ -1,8 +1,8 @@
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:mezon_turkey/custom%20drawer%20screens/shopping_list.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:mezon_turkey/custom%20drawer%20screens/shopping_list.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 firebase_storage.FirebaseStorage storage =
     firebase_storage.FirebaseStorage.instance;
@@ -116,14 +116,8 @@ class SingleProductScreen extends StatelessWidget {
                 ShoppingList.buyingList.add(document);
                 Navigator.pop(context);
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: const Text('به سبد خرید اضافه شد'),
-                    action: SnackBarAction(
-                      label: 'حذف از سبد',
-                      onPressed: () {
-                        //Products.shoppingListProducts.removeLast();
-                      },
-                    ),
+                  const SnackBar(
+                    content: Text('به سبد خرید اضافه شد'),
                   ),
                 );
               },
