@@ -10,6 +10,7 @@ class Bubble extends StatelessWidget {
     required this.size,
     required this.onTap,
     required this.color,
+    required this.onLongPress,
   }) : super(key: key);
 
   final String networkImage;
@@ -18,12 +19,14 @@ class Bubble extends StatelessWidget {
   final String size;
   final bool color;
   final void Function()? onTap;
+  final void Function()? onLongPress;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(12),
       child: GestureDetector(
+        onLongPress: onLongPress,
         onTap: onTap,
         child: Container(
           height: 1000,

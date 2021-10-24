@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mezon_turkey/CustomStuff/bubbles.dart';
 import 'package:mezon_turkey/screens/single_product_screen.dart';
@@ -51,6 +52,37 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 );
+              },
+              onLongPress: () {
+                if (FirebaseAuth.instance.currentUser!.uid.toString() ==
+                    'ViDaBMnGY0dnI32oKXKk9QXgXCY2') {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      content:
+                          Text('Are your sure you want to delete the product?'),
+                      title: Text('Delete'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text('no'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            FirebaseFirestore.instance
+                                .collection('products')
+                                .doc(data['fileName'])
+                                .delete();
+                            Navigator.pop(context);
+                          },
+                          child: Text('delete'),
+                        ),
+                      ],
+                    ),
+                  );
+                }
               },
             );
           }).toList(),

@@ -8,7 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
-final firebaseInstance = FirebaseFirestore.instance;
+FirebaseFirestore firebaseInstance = FirebaseFirestore.instance;
 
 class AdminScreen extends StatefulWidget {
   const AdminScreen({Key? key}) : super(key: key);
@@ -232,7 +232,7 @@ class _AdminScreenState extends State<AdminScreen> {
                 ).show();
               } else {
                 uploadFile();
-                firebaseInstance.collection('products').add({
+                firebaseInstance.collection('products').doc(fileName).set({
                   'code': code,
                   'description': description,
                   'image': 'products image/$fileName',
@@ -240,6 +240,7 @@ class _AdminScreenState extends State<AdminScreen> {
                   'price': price,
                   'isShoe': shoeValue,
                   'isCloth': clothValue,
+                  'fileName': fileName,
                 });
               }
             },

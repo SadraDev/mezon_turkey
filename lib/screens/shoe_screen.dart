@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mezon_turkey/CustomStuff/bubbles.dart';
 import 'package:mezon_turkey/screens/single_product_screen.dart';
@@ -49,6 +50,16 @@ class ShoeScreen extends StatelessWidget {
               );
             }
 
+            void Function()? onLongPress() {
+              if (FirebaseAuth.instance.currentUser!.uid.toString() ==
+                  'ViDaBMnGY0dnI32oKXKk9QXgXCY2') {
+                FirebaseFirestore.instance
+                    .collection('products')
+                    .doc(data[i]['fileName'])
+                    .delete();
+              }
+            }
+
             final newChild = Bubble(
               networkImage: networkImage,
               description: description,
@@ -56,6 +67,7 @@ class ShoeScreen extends StatelessWidget {
               size: size,
               onTap: onTap,
               color: color,
+              onLongPress: onLongPress,
             );
 
             if (data[i]['isShoe'] == true) {
